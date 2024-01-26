@@ -1,0 +1,55 @@
+<div class="page-wrapper">
+    <app-userheader parentName="homepage"></app-userheader>
+    <!--End Main Header -->
+    <!-- Banner Section -->
+    <section class="banner-section">
+        <div class="container">
+            <h1>Blogs</h1>
+        </div>
+    </section>
+    <!--End Banner Section -->
+    
+    
+    <!-- categories -->
+    <section class="categories sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" *ngFor="let blog of blogs">
+                    <div class="d_card" (click)="navigateToBlogDetails(blog._id)">
+                        <img src="{{ipPath}}{{blog.blogImage}}"
+                            alt="Categories">
+                        <div class="content">
+                            <h2 class="heading"><a href="javascript:;"> {{blog.blogTitle}}</a></h2>
+                            <p class="data-content">{{blog.blogContent.substring(0,25)}}...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End categories -->
+    <section class="cr-event">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-sm-5">
+                    <img src="../../../../assets/../../../../assets/images/cr-event.png" alt="create event">
+                </div>
+                <div class="col-sm-7">
+                    <div class="cr-text">
+                        <h4>Make your own Event </h4>
+                        <a class="btn-style-one" href="Javascript:;" data-bs-toggle="modal"
+                            data-bs-target="#listYourEventModel"><span class="btn-title">Create Events</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<app-footer></app-footer>
+<svg class="sprites">
+    <symbol id="select-arrow-down" viewbox="0 0 10 6">
+        <polyline points="1 1 5 5 9 1"></polyline>
+    </symbol>
+</svg>
+<app-login-model></app-login-model>
+<app-list-yourevent></app-list-yourevent>

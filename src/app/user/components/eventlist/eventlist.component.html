@@ -1,0 +1,291 @@
+<div class="page-wrapper">
+    <app-pre-loader *ngIf="loadedEvents.length<= 0"></app-pre-loader>
+  <!-- Main Header-->
+  <app-userheader parentName="event-list"></app-userheader>
+  <!--End Main Header -->
+  <!--Product Start-->
+  <section class="product">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="listing_sidebar">
+                <div class="sidebar style3" [class.open]="filterOpen">
+                    <div class="product__sidebar">
+                        <div class="product__price-ranger product__sidebar-single pb-md-0">
+                            <h3 class="product__sidebar-title mb-md-0 display-filter"><span>Filters</span>
+                                <div class="d-flex align-items-center gap-3">
+                                    <a href="javascript:;" (click)="clearFilter()">Clear all</a>
+                                    <a class="filter_closed_btn float-end" (click)="openFilter()"><span
+                                        class="fas fa-times"></span></a>
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="filter-box" style="display: block;" ><!-- [style.display]="filterOpen" -->
+                            <div class="product__price-ranger product__sidebar-single pt-0">
+                                <div class="price-input mt-md-4 mt-0">
+                                    <input type="date" placeholder="select date" [min]="minDate" class="form-control" [(ngModel)]="dateSelected">
+                                </div>
+                                <div class="price-input">
+                                    <div class="select-box">
+                                        <select name="" id="" [(ngModel)]="selectedLanguage" >
+                                            <option value="">Select Language</option>
+                                            <option value="english">English</option>
+                                            <option value="hindi">Hindi</option>
+                                            <option value="gujarati">Gujarati</option>
+                                            <option value="hinglish">Hinglish</option>
+                                        </select>
+                                        <svg>
+                                            <use xlink:href="#select-arrow-down"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="product__sidebar-title pb-2">Price</h3>
+                                  
+                                <div class="slider">
+                                    <div class="progress" [style.left]="left" [style.right]="right"></div>
+                                </div>
+                                <div class="range-input"  (mousedown)="handleSliderDrag($event)"
+                                (mousemove)="handleSliderDrag($event)"
+                                (mouseup)="handleSliderDrag($event)"
+                                (mouseleave)="handleSliderDrag($event)">
+                                    <input type="range" class="range-min" min="0" max="10000" value="{{minPrice}}" step="100" [(ngModel)]="minPrice">
+                                    <input type="range" class="range-max" min="0" max="10000" value="{{maxPrice}}" step="100" [(ngModel)]="maxPrice">
+                                </div>
+                                <div class="price-input">
+                                    <div class="field">
+                                        <input type="number"  class="input-min" 
+                                            [(ngModel)]="minPrice" (change)="validateMinPrice()">
+                                    </div>
+                                    <div class="field">
+                                        <input type="number"   class="input-max" (change)="validateMaxPrice()"
+                                          [(ngModel)]="maxPrice">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shop-category product__sidebar-single">
+                                <h3 class="product__sidebar-title display-cat"><span>Categories </span> <svg>
+                                        <use xlink:href="#select-arrow-down"></use>
+                                    </svg></h3>
+                                <ul class="list-unstyled">
+                                  <li class="active" *ngFor="let item of categoryItems" [class.active]="item.isActive" (click)="selectValue(item.name)"><a>{{ item.name }}</a></li>
+                                </ul>
+                            </div>
+                            <!-- <div class="product__price-ranger product__sidebar-single">
+                                <a href="javascript:;" type="button" class="btn-style-one"><span class="btn-title" >Search</span></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="container-flex">
+            <div class="select-container">
+              <div class="select-wrapper">
+                <select class="wide" [(ngModel)]="sortBy" (ngModelChange)="onSortByChange()">
+                  <option value="">Sort by</option>
+                  <option value="lth">Sort by Price Low to High</option>
+                  <option value="htl">Sort by Price High to Low</option>
+                </select>
+                <div class="select-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9l6 6 6-6"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="filter-container">
+              <a id="open2" class="filter_open_btn style2 dn db-md" (click)="openFilter()">
+                <img class="mr10" src="../../../../assets/images/icon/filter-icon.svg" alt="filter-icon.svg">
+              </a>
+            </div>
+          </div> -->
+          
+          <div class="row">
+              <div class="col-xl-3 col-lg-3">
+                  <div class="product__sidebar">
+                      <div class="product__price-ranger product__sidebar-single pb-md-0" >
+                        <h3 class="product__sidebar-title mb-md-0 display-filter" *ngIf="!isMobile"><span>Filters</span>
+                            <div class="d-flex align-items-center gap-3">
+                                <a href="javascript:;">Clear all</a>
+                                <svg>
+                                    <use xlink:href="#select-arrow-down"></use>
+                                </svg>
+                            </div>
+                        </h3>
+                          <div class="product__sidebar-title mb-md-0 display-filter" *ngIf="isMobile">
+                            <div class="container-flex">
+                                <div class="select-box">
+                                  <select class="wide-mob custom-select" [(ngModel)]="sortBy" (ngModelChange)="onSortByChange()">
+                                    <option value="">Sort by</option>
+                                    <option value="lth">Sort by Price Low to High</option>
+                                    <option value="htl">Sort by Price High to Low</option>
+                                  </select>
+                                  <svg>
+                                    <use xlink:href="#select-arrow-down"></use>
+                                    </svg>
+                                </div>
+                              </div>
+                              <div class="filter-container">
+                                <a id="open2" class="filter_open_btn style2 dn db-md" (click)="openFilter()">
+                                  <!-- <img class="mr10" src="../../../../assets/images/icon/filter-icon.svg" alt="filter-icon.svg"> -->
+                                  <i class="fa fa-filter" aria-hidden="true"></i>
+                                </a>
+                              </div>
+                              <!-- <div class="d-flex align-items-center gap-3">
+                                  <a href="javascript:;" (click)="clearFilter()">Clear all</a>
+                                  
+                              </div> -->
+                          </div>
+                      </div>
+                      <div class="filter-box" >
+                          <div class="product__price-ranger product__sidebar-single pt-0">
+                              <div class="price-input mt-md-4 mt-0">
+                                  <input type="date" placeholder="select date" [min]="minDate" class="form-control" [(ngModel)]="dateSelected">
+                              </div>
+                              <div class="price-input">
+                                  <div class="select-box">
+                                      <select name="" id="" [(ngModel)]="selectedLanguage" >
+                                          <option value="">Select Language</option>
+                                          <option value="english">English</option>
+                                          <option value="hindi">Hindi</option>
+                                          <option value="gujarati">Gujarati</option>
+                                          <option value="hinglish">Hinglish</option>
+                                      </select>
+                                      <svg>
+                                          <use xlink:href="#select-arrow-down"></use>
+                                      </svg>
+                                  </div>
+                              </div>
+                              <h3 class="product__sidebar-title pb-2">Price</h3>
+                                
+                              <div class="slider">
+                                  <div class="progress" [style.left]="left" [style.right]="right"></div>
+                              </div>
+                              <div class="range-input"  (mousedown)="handleSliderDrag($event)"
+                              (mousemove)="handleSliderDrag($event)"
+                              (mouseup)="handleSliderDrag($event)"
+                              (mouseleave)="handleSliderDrag($event)">
+                                  <input type="range" class="range-min" min="0" max="10000" value="{{minPrice}}" step="100" [(ngModel)]="minPrice">
+                                  <input type="range" class="range-max" min="0" max="10000" value="{{maxPrice}}" step="100" [(ngModel)]="maxPrice">
+                              </div>
+                              <div class="price-input">
+                                  <div class="field">
+                                      <input type="number"  class="input-min" 
+                                          [(ngModel)]="minPrice" (change)="validateMinPrice()">
+                                  </div>
+                                  <div class="field">
+                                      <input type="number"   class="input-max" (change)="validateMaxPrice()"
+                                        [(ngModel)]="maxPrice">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="shop-category product__sidebar-single">
+                              <h3 class="product__sidebar-title display-cat"><span>Categories </span> <svg>
+                                      <use xlink:href="#select-arrow-down"></use>
+                                  </svg></h3>
+                              <ul class="list-unstyled">
+                                <li class="active" *ngFor="let item of categoryItems" [class.active]="item.isActive" (click)="selectValue(item.name)"><a>{{ item.name }}</a></li>
+                              </ul>
+                          </div>
+                          <!-- <div class="product__price-ranger product__sidebar-single">
+                              <a href="javascript:;" type="button" class="btn-style-one"><span class="btn-title" >Search</span></a>
+                          </div> -->
+                      </div>
+                  </div>
+              </div>
+              
+              <div class="col-xl-9 col-lg-9">
+                  <div class="product__items" >
+                      <div class="row">
+                          <div class="col-xl-12">
+                              <div class="product__showing-result" *ngIf="!isMobile">
+                                    <div class="product__menu-showing-sort">
+                                        <div class="product__showing-sort" style="display: inline;">
+                                            <div class="select-box">
+                                                <select class="wide"  [(ngModel)]="sortBy" (ngModelChange)="onSortByChange()">
+                                                    <option value="">Sort by</option>
+                                                    <option value="lth">Sort by Price Low to High</option>
+                                                    <option value="htl">Sort by Price High to low</option>
+                                                </select>
+                                                <svg>
+                                                    <use xlink:href="#select-arrow-down"></use>
+                                                </svg>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="product__all" >
+                          <div class="enent-cat">
+                              <div class="row" *ngIf="loadedEvents.length> 0 && filteredData.length>0" >
+                                  <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3" (click)="navigateToEventDetails(event._id)" *ngFor="let event of filteredData;let i=index;">
+                                      <div class="events-list" style="cursor: pointer;">
+                                        <div class="event-img">
+                                            <img src="{{ipPath}}{{event.eventImages.eventCardImage}}" alt="event" loading="lazy"> 
+                                            <div class="location" *ngIf="filteredEventTicketPrice[i]!=0">₹{{filteredEventTicketPrice[i]}}</div>
+                                                    <div class="location" *ngIf="filteredEventTicketPrice[i]==0">Free</div>
+                                        </div>
+                                          <div class="text-light">
+                                              <a href="javascript:;"><i class="fas fa-map-marker-alt"></i> {{event.eventLocation.eventArea}}</a>
+                                          </div>
+                                          <div class="event-text">
+                                            <div class="date" *ngIf="event.isMultiDateEvent==false">
+                                        
+                                                <label>{{ months[parseInteger(event.eventDates[0].eventDate.toString().split('-')[1]) - 1] }}</label>
+                                                <p>{{event.eventDates[0].eventDate.toString().split('-')[2].split('T')[0]}}</p>
+                                            </div>
+                                            <div class="date" *ngIf="event.isMultiDateEvent==true">
+                                                <label>{{ months[parseInteger(event.eventDates[0].eventDate.toString().split('-')[1]) - 1] }}</label>
+                                                <ng-container *ngIf="isBeforeStartDate(event.eventDates[0].eventDate.toString())">
+
+                                                    <p>{{ event.eventDates[0].eventDate.toString().split('-')[2].split('T')[0] }}
+                                                    </p>
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="!isBeforeStartDate(event.eventDates[0].eventDate.toString()) && isAfterStartDate(event)">
+                                                    <p>{{ currentDate.toString().split('-')[2].split('T')[0] }}</p>
+                                                </ng-container>
+                                                  <!-- <ng-container *ngIf="isAfterEndDate(event.eventDates[event.eventDates.length-1].eventDate.toString())">
+                                                    <p>{{ event.eventDates[event.eventDates.length-1].eventDate.toString().split('-')[2].split('T')[0] }}</p>
+                                                  </ng-container> -->
+                                            </div>
+                                              <div class="desc">
+                                                  <h3><a href="javascript:;"> {{capitalizeFirstChar(truncateTitle(event.eventTitle,36))}}</a></h3>
+                                                 
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              
+                              <div *ngIf="loadedEvents.length == 0  || filteredData.length == 0" class="row d-flex justify-content-center">
+                                <div class="col-md-6 col-sm-6 no-data event-imgg-responsive">
+                                    <img src="../../../../assets/images/notdata.jpg" alt="event" loading="lazy">
+                                    <p>No Events available.</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!--Product End-->
+</div>
+<!-- Main Footer -->
+<app-footer></app-footer>
+<!-- End Footer -->
+<!-- svgs -->
+<svg class="sprites">
+  <symbol id="select-arrow-down" viewbox="0 0 10 6">
+      <polyline points="1 1 5 5 9 1"></polyline>
+  </symbol>
+</svg>
+<!-- login Modal -->
+<app-login-model></app-login-model>
+<app-list-yourevent></app-list-yourevent>
+

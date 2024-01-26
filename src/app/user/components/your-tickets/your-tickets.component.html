@@ -1,0 +1,264 @@
+<div class="page-wrapper">
+    <app-pre-loader *ngIf="orderWithEvent.length<=0"></app-pre-loader>
+    <!-- Main Header-->
+    <app-userheader></app-userheader>
+    <!--End Main Header -->
+    <!--Product Start-->
+    <section class="event">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#home">Tickets</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#menu1">History</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">
+
+                            <div class="ticket ticket-box" *ngFor="let order of orderWithEvent">
+                                <div class="left" (click)="toggleRight()">
+                                    <div class="image" style="background-image: url({{order.orderImage}});">
+                                        <p class="admit-one">
+                                            <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                            <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                        </p>
+                                        <div class="ticket-number">
+                                            <!-- <p>
+                                                #{{order._id}}
+                                            </p> -->
+                                        </div>
+                                    </div>
+                                    <div class="ticket-info">
+                                        <p class="date">
+                                            <span>{{getDayOfWeek(order.ticketDate.toString().split('T')[0])}}</span>
+                                            <span
+                                                class="nov-10">{{convertDateFormat(order.ticketDate.toString().split('T')[0])}}</span>
+                                            <span>{{order.ticketDate.toString().split('-')[0]}}</span>
+                                        </p>
+                                        <div class="show-name">
+                                            <h1>#SHOWMATES</h1>
+                                            <h2>{{order.eventTitle}}</h2>
+
+                                        </div>
+                                        <div class="time">
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.toString().split('T')[0])}}
+                                                <span>TO</span>
+                                                {{getEventEndTime(order.eventDates,order.ticketDate.toString().split('T')[0])}}
+                                            </p>
+                                        </div>
+                                        <div class="tagline">
+                                            <p>{{order.eventLocation.eventVenue}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="!mobile">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#SHOWMATES</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span>
+                                                {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="mobile" [class.d-block]="opened">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#WarriorNunSaved</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span> {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="mobile">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#WarriorNunSaved</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span> {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center-content" *ngIf="orderWithEvent.length <= 0">
+                                <p>
+                                    No Tickets Yet
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="menu1">
+                            <div class="ticket ticket-box" *ngFor="let order of previousOrders">
+                                <div class="left" (click)="toggleRight()">
+                                    <div class="image" style="background-image: url({{order.orderImage}});">
+                                        <p class="admit-one">
+                                            <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                            <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                        </p>
+                                        <div class="ticket-number">
+                                            <!-- <p>
+                                                #{{order._id}}
+                                            </p> -->
+                                        </div>
+                                    </div>
+                                    <div class="ticket-info">
+                                        <p class="date">
+                                            <span>{{getDayOfWeek(order.ticketDate.toString().split('T')[0])}}</span>
+                                            <span
+                                                class="nov-10">{{convertDateFormat(order.ticketDate.toString().split('T')[0])}}</span>
+                                            <span>{{order.ticketDate.split('-')[0]}}</span>
+                                        </p>
+                                        <div class="show-name">
+                                            <h1>#SHOWMATES</h1>
+                                            <h2>{{order.eventTitle}}</h2>
+
+                                        </div>
+                                        <div class="time">
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span>
+                                                {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                            </p>
+                                        </div>
+                                        <div class="tagline">
+                                            <p>{{order.eventLocation.eventVenue}}</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="!mobile">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#SHOWMATES</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span>
+                                                {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="mobile" [class.d-block]="opened">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#WarriorNunSaved</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span> TBD</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="right" *ngIf="mobile">
+                                    <p class="admit-one">
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+
+                                        <span>ADMIT {{numberToWords(getCount(order.tickets))}}</span>
+                                    </p>
+                                    <div class="right-info-container">
+                                        <div class="show-name">
+                                            <h1>#WarriorNunSaved</h1>
+                                        </div>
+                                        <div class="time">
+                                            <p>{{order.ticketDate.split('T')[0]}}</p>
+                                            <p>{{getEventStartTime(order.eventDates,order.ticketDate.split('T')[0])}}
+                                                <span>TO</span> {{getEventEndTime(order.eventDates,order.ticketDate.split('T')[0])}}</p>
+                                        </div>
+                                        <div class="barcode">
+                                            <img src="{{ipPath}}{{order.ticketQrCode}}" alt="QR code">
+                                        </div>
+                                        <p class="ticket-number">
+                                            #{{order._id}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="center-content" *ngIf="previousOrders.length <= 0">
+                                <p>
+                                    No Tickets Yet
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Product End-->
+</div>
+
+<app-footer></app-footer>

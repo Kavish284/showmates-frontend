@@ -1,0 +1,10 @@
+.banner-section {
+    display: flex;
+    justify-content: center; /* Horizontal centering */
+    align-items: center; /* Vertical centering */
+     /* You can adjust the height as needed */
+  }
+  
+  .container {
+    text-align: center; /* If you want to center-align the text inside the container */
+  }

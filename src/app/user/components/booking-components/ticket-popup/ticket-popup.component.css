@@ -1,0 +1,35 @@
+.sold-out {
+    text-align: center; /* Center the text horizontally */
+    color: red; /* Make the text red */
+    font-weight: bold; /* Add bold font style, if desired */
+    margin-top: 10px;
+    padding-left: 35px;
+  }
+
+  @media only screen and (max-width:599px)  {
+    .sold-out {
+        text-align: center; /* Center the text horizontally */
+        color: red; /* Make the text red */
+        font-weight: bold; /* Add bold font style, if desired */
+        margin-top: 0px;
+        padding-left: 0px;
+      }
+}
+
+/* Styles for the close button */
+.btn-close {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  color: #242565 ; /* Change the color to your preference */
+  font-size: 1rem; /* Adjust the font size as needed */
+  cursor: pointer;
+  transition: color 0.3s ease, background-color 0.3s ease; /* Add smooth transitions on hover */
+  position: relative;
+}
+
+/* Add more styles for the hover effect */
+.btn-close:hover {
+  color: #ff5a5f; /* Change the color to your preferred hover color */
+  background-color: #ff007b; /* Change the background color on hover */
+}

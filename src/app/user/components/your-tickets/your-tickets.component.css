@@ -1,0 +1,14 @@
+.center-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* This ensures the content takes up the full viewport height */
+  }
+  .center-content p {
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: #333; /* Change the color to your preferred color */
+    text-align: center;
+    /* Add other styles as desired, e.g., background-color, padding, border, etc. */
+  }

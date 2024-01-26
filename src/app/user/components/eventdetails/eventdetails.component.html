@@ -1,0 +1,930 @@
+
+
+<div class="page-wrapper detail-main" *ngIf="event">
+
+    <meta property="og:image" content="{{ipPath}}{{event?.eventImages.eventBannerImage}}" />
+    <!-- Main Header-->
+    <app-userheader></app-userheader>
+    <section class="product-detail sec-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+
+                    <div class="detail-img" *ngIf="!isBannerLoaded">
+                        
+                        <img *ngIf="mobileView" src="../../../../assets/gif/shimmer.gif" class="loading-placeholder-mobile"  loading="lazy">
+                        <img *ngIf="!mobileView" src="../../../../assets/gif/shimmer.gif"  class="loading-placeholder"  loading="lazy">
+                    </div>
+
+                    <div class="detail-img" *ngIf="isBannerLoaded">
+                        <a (click)="share()" class="share-mob">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                <path d="M8.7 10.7l6.6 -3.4"></path>
+                                <path d="M8.7 13.3l6.6 3.4"></path>
+                            </svg>
+                        </a>
+                        <img src="{{ipPath}}{{event?.eventImages?.eventBannerImage}}" alt="detail-img" loading="lazy">
+                    </div>
+                    <div class="detail-card mob-view">
+                        <div class="detail-card-header">
+                            <h3>{{capitalizeFirstChar(event.eventTitle)}} <!-- <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="24" height="24"
+                                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+                                </svg> (1.2k)</span> --></h3>
+                        </div>
+                        <div class="detail-card-body">
+                            <div class="row">
+                                <div class="col-sm-6  col-6">
+                                    <div class="cat-icon-list">
+                                        <ng-container [ngSwitch]="event.eventCatagory">
+                                            <svg *ngSwitchCase="'Concert'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-hand-rock" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M11 11.5v-1a1.5 1.5 0 0 1 3 0v1.5"></path>
+                                                <path
+                                                    d="M17 12v-6.5a1.5 1.5 0 0 1 3 0v10.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47">
+                                                </path>
+                                                <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5"></path>
+                                                <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Stand-up'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-microphone-2" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M15 12.9a5 5 0 1 0 -3.902 -3.9"></path>
+                                                <path
+                                                    d="M15 12.9l-3.902 -3.899l-7.513 8.584a2 2 0 1 0 2.827 2.83l8.588 -7.515z">
+                                                </path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Food and drinks'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-chef-hat" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z">
+                                                </path>
+                                                <path d="M6.161 17.009l11.839 -.009"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Festival'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-confetti" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M4 5h2"></path>
+                                                <path d="M5 4v2"></path>
+                                                <path d="M11.5 4l-.5 2"></path>
+                                                <path d="M18 5h2"></path>
+                                                <path d="M19 4v2"></path>
+                                                <path d="M15 9l-1 1"></path>
+                                                <path d="M18 13l2 -.5"></path>
+                                                <path d="M18 19h2"></path>
+                                                <path d="M19 18v2"></path>
+                                                <path
+                                                    d="M14 16.518l-6.518 -6.518l-4.39 9.58a1 1 0 0 0 1.329 1.329l9.579 -4.39z">
+                                                </path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Workshop'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-brand-spacehey" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                                <path d="M14 20h6v-6a3 3 0 0 0 -6 0v6z"></path>
+                                                <path d="M11 8v2.5a3.5 3.5 0 0 1 -3.5 3.5h-.5a3 3 0 0 1 0 -6h4z"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Education'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-books" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                                </path>
+                                                <path
+                                                    d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                                </path>
+                                                <path d="M5 8h4"></path>
+                                                <path d="M9 16h4"></path>
+                                                <path
+                                                    d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z">
+                                                </path>
+                                                <path d="M14 9l4 -1"></path>
+                                                <path d="M16 16l3.923 -.98"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Fitness'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-heartbeat" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572">
+                                                </path>
+                                                <path d="M3 13h2l2 3l2 -6l1 3h3"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Business'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-message-dollar" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M8 9h8"></path>
+                                                <path d="M8 13h6"></path>
+                                                <path
+                                                    d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v3.5">
+                                                </path>
+                                                <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                                <path d="M19 21v1m0 -8v1"></path>
+                                            </svg>
+                                            <i *ngSwitchDefault class="fas fa-question-circle"></i>
+                                        </ng-container><span>{{capitalizeFirstChar(event.eventCatagory)}} </span>
+                                    </div>
+
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-clock-hour-8" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                            <path d="M12 12l-3 2"></path>
+                                            <path d="M12 7v5"></path>
+                                        </svg> <span> Starts at {{eventStartTime}}</span>
+                                    </div>
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-message-language" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4">
+                                            </path>
+                                            <path d="M10 14v-4a2 2 0 1 1 4 0v4"></path>
+                                            <path d="M14 12h-4"></path>
+                                        </svg> <span *ngFor="let item of event.eventLanguages; let last = last">
+                                            {{ item }}{{ !last ? ',' : '' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6  col-6">
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-calendar-due" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z">
+                                            </path>
+                                            <path d="M16 3v4"></path>
+                                            <path d="M8 3v4"></path>
+                                            <path d="M4 11h16"></path>
+                                            <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        </svg>
+                                        <span *ngIf="event.eventDates.length==1">
+                                            {{formatDate(event.eventDates[0].eventDate)}}
+                                        </span>
+                                        <span *ngIf="event.eventDates.length>1 && getCurrentDateForDetails()">
+                                  
+                                            Starts from {{formatDate(currentDateForDetails)}} -
+                                            {{formatDate(event.eventDates[event.eventDates.length-1].eventDate)}}
+                                        </span>
+                                    </div>
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-hourglass-empty" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1z">
+                                            </path>
+                                            <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z">
+                                            </path>
+                                        </svg> <span>{{eventDuration}}</span>
+                                    </div>
+
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-users-group" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
+                                        </svg>
+                                        <span *ngIf="event.eventAgeGroup=='Any'">All age group</span>
+                                        <span *ngIf="event.eventAgeGroup!='Any'">{{event.eventAgeGroup}}</span>
+                                    </div>
+                                </div>
+                                <div class="container-strp">
+                                    <div class="col-12 weather-strip">
+                                        <p>this is weather strip</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-card-footer mob-hide">
+                            <div class="btn-card">
+                                <h5>₹
+                                    <span *ngIf="eventTicketPrice!=0">{{eventTicketPrice}} </span>
+                                    <span *ngIf="eventTicketPrice==0">Free</span>
+                                </h5>
+
+                                <div *ngIf="availableDates?.length==1"><a class="btn-code"
+                                        (click)="openDirectTicketModal()">Book</a></div>
+                                <div *ngIf="availableDates?.length>1"><a class="btn-code" data-bs-toggle="modal"
+                                        data-bs-target="#mybookcal">Book</a></div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="event-disc">
+                        <div class="title-flex d-none">
+                            <div class="detail-txt">
+                                <h1>{{capitalizeFirstChar(event.eventTitle)}} <label>Hosted by:
+                                        {{capitalizeFirstChar(event.eventOrganizerName)}} </label></h1>
+
+                                <p>₹{{eventTicketPrice}}</p>
+                            </div>
+                        </div>
+                        <div class="about-title">
+                            <div class="">
+                                <h3>About</h3>
+                            </div>
+                            <div class="like-share">
+                                <a (click)="toggleLike()" href="javascript:;">
+                                    <svg [class.liked]="isLiked" xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-heart" width="24" height="24"
+                                        viewBox="0 0 24 24" stroke-width="2" stroke="#ff0077" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path
+                                            d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572">
+                                        </path>
+                                    </svg><span style="color: #5443B0;">({{event.eventLikeCount}})</span></a>
+                                <a (click)="share()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-share"
+                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                                        <path d="M8.7 10.7l6.6 -3.4"></path>
+                                        <path d="M8.7 13.3l6.6 3.4"></path>
+                                    </svg></a>
+                            </div>
+                        </div>
+                        <p style="White-space:pre-wrap" *ngIf="displayText=='none'">
+                            {{capitalizeFirstChar(event.eventDescription) | slice:0:121}}...
+                        </p>
+                        <div id="more" [style.display]="displayText">
+                            <p style="White-space:pre-wrap">{{capitalizeFirstChar(event.eventDescription)}}</p>
+
+                        </div>
+                        <a (click)="readMore()" id="myBtn" href="javascript:;">Read More</a>
+
+                    </div>
+                    <div class="accordion" id="accordionExample">
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button" [class.collapsed]="!oscollapse"
+                                    (click)="toggleCollapase('os')" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    Offline Seller
+                                </button>
+                            </h2>
+                            <div *ngIf="oscollapse" id="collapseTwo" class="accordion-collapse collapse"
+                                [class.show]="oscollapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div *ngFor="let offlineSeller of event?.eventOfflineSellers">
+                                        <p>Name : {{capitalizeFirstChar(offlineSeller.eventOfflineSellerName)}}</p>
+                                        <p>Contact no. : <a
+                                                href="tel:+91 {{offlineSeller.eventOfflineSellerNumber}}">{{offlineSeller.eventOfflineSellerNumber}}</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="event?.eventOfflineSellers.length==0">
+                                <div *ngIf="oscollapse" id="collapseTwo" class="accordion-collapse collapse"
+                                    [class.show]="oscollapse" aria-labelledby="headingTwo"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <p>No offline sellers are available for this event.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item"
+                            *ngIf="event?.eventSocialMediaLinks && event?.eventSocialMediaLinks?.length!=0">
+                            <h2 class="accordion-header" id="headingTwoo">
+                                <button class="accordion-button" [class.collapsed]="!linkcollapse"
+                                    (click)="toggleCollapase('link')" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwoo" aria-expanded="false"
+                                    aria-controls="collapseTwoo">Social Links
+                                </button>
+                            </h2>
+                            <div *ngIf="linkcollapse;" id="collapseTwoo" class="accordion-collapse collapse"
+                                [class.show]="linkcollapse" aria-labelledby="headingTwoo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div *ngFor="let link of event.eventSocialMediaLinks">
+                                        <p><a href="{{link}}" target="_blank" style="color:blueviolet;">{{link}}</a></p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button" [class.collapsed]="!vlcollapse"
+                                    (click)="toggleCollapase('vl')" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Venue Layout
+                                </button>
+                            </h2>
+                            <div *ngIf="vlcollapse">
+                                <div *ngIf=" event?.eventImages?.eventVenueImage!=undefined && event?.eventImages?.eventVenueImage!=''"
+                                    id="collapseThree" class="accordion-collapse collapse" [class.show]="vlcollapse"
+                                    aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <img src="{{ipPath}}{{event?.eventImages?.eventVenueImage}}" alt=""
+                                            loading="lazy">
+                                    </div>
+                                </div>
+                                <div *ngIf="event?.eventImages?.eventVenueImage==undefined || event?.eventImages?.eventVenueImage==''"
+                                    id="collapseThree"
+                                    class="accordion-collapse collapse row d-flex justify-content-center"
+                                    aria-labelledby="headingThree" [class.show]="vlcollapse"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body col-md-6 col-sm-3">
+                                        <p>Venue layout is not available</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button " [class.collapsed]="!showTac"
+                                    (click)="toggleCollapase('tac')" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Terms & Conditions
+                                </button>
+                            </h2>
+                            <!-- if tnc available -->
+                            <div *ngIf="event.eventTermsAndConditions.length!=0">
+                                <div *ngIf="showTac" id="collapseOne" class="accordion-collapse collapse"
+                                    [class.show]="showTac" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body" style="padding: 1rem 2.25rem;">
+                                        <ol type="1">
+                                            <li *ngFor="let tmc of event.eventTermsAndConditions">
+                                                {{capitalizeFirstChar(tmc)}}</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- if tnc not available -->
+                            <div *ngIf="event.eventTermsAndConditions.length==0">
+                                <div *ngIf="showTac" id="collapseOne" class="accordion-collapse collapse"
+                                    [class.show]="showTac" aria-labelledby="headingOne"
+                                    data-bs-parent="#accordionExample">
+                                    <div class="accordion-body" style="padding: 1rem 2.25rem;">
+                                        <ol type="1">
+                                            <li>Attendees must follow the event organizer's instructions and comply with
+                                                any rules or regulations related to the event.
+                                            </li>
+                                            <li>The event organizer reserves the right to deny entry or remove any
+                                                attendee behaving inappropriately or violating event policies.</li>
+                                            <li>The terms and conditions are governed by the laws of the relevant
+                                                jurisdiction. Any disputes should be resolved within the
+                                                designated jurisdiction.</li>
+                                            <li>The event organizer reserves the right to modify or update the terms and
+                                                conditions at any time, and attendees should review them periodically
+                                                for any changes.</li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="detail-card desktop-view">
+                        <div class="detail-card-header">
+                            <h3>{{capitalizeFirstChar(event.eventTitle)}}</h3>
+                        </div>
+                        <div class="detail-card-body">
+                            <div class="row">
+                                <div class="col-sm-6 ">
+                                    <div class="cat-icon-list">
+                                        <ng-container [ngSwitch]="event.eventCatagory">
+                                            <svg *ngSwitchCase="'Concert'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-hand-rock" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M11 11.5v-1a1.5 1.5 0 0 1 3 0v1.5"></path>
+                                                <path
+                                                    d="M17 12v-6.5a1.5 1.5 0 0 1 3 0v10.5a6 6 0 0 1 -6 6h-2h.208a6 6 0 0 1 -5.012 -2.7a69.74 69.74 0 0 1 -.196 -.3c-.312 -.479 -1.407 -2.388 -3.286 -5.728a1.5 1.5 0 0 1 .536 -2.022a1.867 1.867 0 0 1 2.28 .28l1.47 1.47">
+                                                </path>
+                                                <path d="M14 10.5a1.5 1.5 0 0 1 3 0v1.5"></path>
+                                                <path d="M8 13v-8.5a1.5 1.5 0 0 1 3 0v7.5"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Stand-up'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-microphone-2" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M15 12.9a5 5 0 1 0 -3.902 -3.9"></path>
+                                                <path
+                                                    d="M15 12.9l-3.902 -3.899l-7.513 8.584a2 2 0 1 0 2.827 2.83l8.588 -7.515z">
+                                                </path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Food and drinks'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-chef-hat" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M12 3c1.918 0 3.52 1.35 3.91 3.151a4 4 0 0 1 2.09 7.723l0 7.126h-12v-7.126a4 4 0 1 1 2.092 -7.723a4 4 0 0 1 3.908 -3.151z">
+                                                </path>
+                                                <path d="M6.161 17.009l11.839 -.009"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Festival'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-confetti" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M4 5h2"></path>
+                                                <path d="M5 4v2"></path>
+                                                <path d="M11.5 4l-.5 2"></path>
+                                                <path d="M18 5h2"></path>
+                                                <path d="M19 4v2"></path>
+                                                <path d="M15 9l-1 1"></path>
+                                                <path d="M18 13l2 -.5"></path>
+                                                <path d="M18 19h2"></path>
+                                                <path d="M19 18v2"></path>
+                                                <path
+                                                    d="M14 16.518l-6.518 -6.518l-4.39 9.58a1 1 0 0 0 1.329 1.329l9.579 -4.39z">
+                                                </path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Workshop'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-brand-spacehey" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M17 6m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                                <path d="M14 20h6v-6a3 3 0 0 0 -6 0v6z"></path>
+                                                <path d="M11 8v2.5a3.5 3.5 0 0 1 -3.5 3.5h-.5a3 3 0 0 1 0 -6h4z"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Education'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-books" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M5 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                                </path>
+                                                <path
+                                                    d="M9 4m0 1a1 1 0 0 1 1 -1h2a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-2a1 1 0 0 1 -1 -1z">
+                                                </path>
+                                                <path d="M5 8h4"></path>
+                                                <path d="M9 16h4"></path>
+                                                <path
+                                                    d="M13.803 4.56l2.184 -.53c.562 -.135 1.133 .19 1.282 .732l3.695 13.418a1.02 1.02 0 0 1 -.634 1.219l-.133 .041l-2.184 .53c-.562 .135 -1.133 -.19 -1.282 -.732l-3.695 -13.418a1.02 1.02 0 0 1 .634 -1.219l.133 -.041z">
+                                                </path>
+                                                <path d="M14 9l4 -1"></path>
+                                                <path d="M16 16l3.923 -.98"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Fitness'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-heartbeat" width="24" height="24"
+                                                viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path
+                                                    d="M19.5 13.572l-7.5 7.428l-2.896 -2.868m-6.117 -8.104a5 5 0 0 1 9.013 -3.022a5 5 0 1 1 7.5 6.572">
+                                                </path>
+                                                <path d="M3 13h2l2 3l2 -6l1 3h3"></path>
+                                            </svg>
+                                            <svg *ngSwitchCase="'Business'" xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-message-dollar" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0"
+                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                                <path d="M8 9h8"></path>
+                                                <path d="M8 13h6"></path>
+                                                <path
+                                                    d="M13 18l-5 3v-3h-2a3 3 0 0 1 -3 -3v-8a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v3.5">
+                                                </path>
+                                                <path d="M21 15h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3h-2.5"></path>
+                                                <path d="M19 21v1m0 -8v1"></path>
+                                            </svg>
+                                            <i *ngSwitchDefault class="fas fa-question-circle"></i>
+                                        </ng-container><span>{{capitalizeFirstChar(event.eventCatagory)}} </span>
+                                    </div>
+
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-clock-hour-8" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                                            <path d="M12 12l-3 2"></path>
+                                            <path d="M12 7v5"></path>
+                                        </svg><span> Starts at {{eventStartTime}}</span>
+                                    </div>
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-message-language" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4">
+                                            </path>
+                                            <path d="M10 14v-4a2 2 0 1 1 4 0v4"></path>
+                                            <path d="M14 12h-4"></path>
+                                        </svg> <span *ngFor="let item of event.eventLanguages; let last = last">
+                                            {{ item }}{{ !last ? ',' : '' }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-calendar-due" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path
+                                                d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z">
+                                            </path>
+                                            <path d="M16 3v4"></path>
+                                            <path d="M8 3v4"></path>
+                                            <path d="M4 11h16"></path>
+                                            <path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+                                        </svg>
+                                        <span *ngIf="event.eventDates.length==1">
+                                            {{formatDate(event.eventDates[0].eventDate)}}
+                                        </span>
+                                        <span *ngIf="event.eventDates.length>1 && getCurrentDateForDetails()">
+                                            Starts from {{formatDate(currentDateForDetails)}} -
+                                            {{formatDate(event.eventDates[event.eventDates.length-1].eventDate)}}
+                                        </span>
+                                    </div>
+
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-hourglass-empty" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M6 20v-2a6 6 0 1 1 12 0v2a1 1 0 0 1 -1 1h-10a1 1 0 0 1 -1 -1z">
+                                            </path>
+                                            <path d="M6 4v2a6 6 0 1 0 12 0v-2a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1z">
+                                            </path>
+                                        </svg><span>{{eventDuration}}</span>
+                                    </div>
+                                    <div class="cat-icon-list">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-users-group" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="#5443B0" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M10 13a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M8 21v-1a2 2 0 0 1 2 -2h4a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M15 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M17 10h2a2 2 0 0 1 2 2v1"></path>
+                                            <path d="M5 5a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                                            <path d="M3 13v-1a2 2 0 0 1 2 -2h2"></path>
+                                        </svg>
+                                        <span *ngIf="event.eventAgeGroup=='Any'">All age group</span>
+                                        <span *ngIf="event.eventAgeGroup!='Any'">{{event.eventAgeGroup}}</span>
+                                    </div>
+                                </div>
+                                <div class="container-strp">
+                                    <div class="col-12 weather-strip">
+                                        <p>this is weather strip</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-card-footer">
+                            <div class="btn-card">
+                                <h5>
+                                    <span *ngIf="eventTicketPrice!=0">₹ {{eventTicketPrice}} <small
+                                            style="font-weight: 500;font-size:15px;"
+                                            *ngIf="isOnwardsRequired">onwards</small></span>
+                                    <span *ngIf="eventTicketPrice==0">₹ Free</span>
+                                </h5>
+                                <a *ngIf="availableDates?.length==1" class="btn-code"
+                                    (click)="openDirectTicketModal()">Book</a>
+                                <a *ngIf="availableDates?.length>1" class="btn-code" data-bs-toggle="modal"
+                                    data-bs-target="#mybookcal">Book</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="share-location">
+                        <h3 *ngIf="event._id=='6579bc6ebb046e3128e599b4' || event._id=='6579c181bb046e3128e59bab'"><svg
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                <path
+                                    d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
+                                </path>
+                            </svg>Bikaner</h3>
+                            <h3 *ngIf="event._id=='658c1392ec73cd711b3f4331'"><svg
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                <path
+                                    d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
+                                </path>
+                            </svg>Surat</h3>
+                            <h3 *ngIf="event._id=='658c100cec73cd711b3f4129'"><svg
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                <path
+                                    d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
+                                </path>
+                            </svg>Vadodara</h3>
+                        <h3 *ngIf="event._id!='6579bc6ebb046e3128e599b4' && event._id!='6579c181bb046e3128e59bab' && event._id!='658c100cec73cd711b3f4129' && event._id!='658c1392ec73cd711b3f4331'"><svg
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"></path>
+                                <path
+                                    d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
+                                </path>
+                            </svg>Ahmedabad</h3>
+                        <p>{{capitalizeFirstChar(event.eventLocation.eventVenue)}},
+                            {{capitalizeFirstChar(event.eventLocation.eventAddress)}}
+                            ,{{event.eventLocation.eventPincode}}, India</p>
+                        <div class="map">
+                            <iframe *ngIf="hasMapString" [src]="event.eventLocation.eventEmbeddedMapString" width="1000"
+                                height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <img *ngIf="!hasMapString" style="cursor: pointer;"
+                                src="../../../../assets/images/googlemap.jpeg" alt="Google Map"
+                                (click)="openGoogleMaps(event.eventLocation.eventVenue)" loading="lazy" />
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="share-location d-none" id="eventHide">
+                        <h3>Share This Event</h3>
+                        <div class="like-share">
+                            <a href="javascript:;"><i class="fas fa-heart"></i> <span>(1.2k)</span></a>
+                            <a href="javascript:;"><i class="fas fa-share-alt-square"></i></a>
+                        </div>
+                    </div> -->
+
+                    <div class="share-profile" *ngIf="event?.eventArtists.length!=0">
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-users"
+                                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <path d="M9 7m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"></path>
+                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                <path d="M21 21v-2a4 4 0 0 0 -3 -3.85"></path>
+                            </svg>Artist</h3>
+                        <div *ngIf="event?.eventArtists.length>1">
+                            <owl-carousel-o [options]="artistOptions">
+                                <ng-container *ngFor="let artist of event?.eventArtists">
+                                    <ng-template carouselSlide [id]="artist._id">
+                                        <div class="profile item" style="text-align: center;">
+                                            <div class="profile-image"
+                                                *ngIf="artist.eventArtistImage != undefined || artist.eventArtistImage !=''">
+                                                <img src="{{ipPath}}{{artist.eventArtistImage}}" alt="avatar"
+                                                    loading="lazy">
+                                                <label>{{capitalizeFirstChar(artist.eventArtistName)}}</label>
+                                            </div>
+                                            <div *ngIf="artist.eventArtistImage == undefined || artist.eventArtistImage == ''"
+                                                class="image-container">
+                                                <img src="../../../../assets/images/noavtar.png" alt="avatar"
+                                                    loading="lazy">
+                                                <label>{{capitalizeFirstChar(artist.eventArtistName)}}</label>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+                            </owl-carousel-o>
+                        </div>
+                        <div *ngIf="event?.eventArtists.length==1">
+                            <div class="center-container">
+                                <div class="profile item" *ngFor="let artist of event?.eventArtists">
+                                    <div class="profile-image"
+                                        *ngIf="artist.eventArtistImage != undefined || artist.eventArtistImage !=''">
+                                        <img class="rounded-image" src="{{ipPath}}{{artist.eventArtistImage}}"
+                                            alt="avatar" loading="lazy">
+                                        <label>{{capitalizeFirstChar(artist.eventArtistName)}}</label>
+                                    </div>
+                                    <div *ngIf="artist.eventArtistImage == undefined || artist.eventArtistImage == ''"
+                                        class="image-container">
+                                        <img src="../../../../assets/images/noavtar.png" alt="avatar" loading="lazy">
+                                        <label>{{capitalizeFirstChar(artist.eventArtistName)}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-footer">
+            <div class="btn-card">
+                <h5 style="font-size: 22px !important;"><span *ngIf="eventTicketPrice!=0">₹ {{eventTicketPrice}} <small
+                            style="font-weight: 500;font-size:15px;" *ngIf="isOnwardsRequired">onwards</small></span>
+                    <span *ngIf="eventTicketPrice==0">Free</span>
+                </h5>
+                <div *ngIf="availableDates?.length==1"><a class="btn-code" (click)="openDirectTicketModal()">Book</a>
+                </div>
+                <div *ngIf="availableDates?.length>1"><a class="btn-code" data-bs-target="#mybookcal"
+                        data-bs-toggle="modal">Book</a></div>
+            </div>
+        </div>
+
+        <div id="modalpop" class="modal" [class.active-model]="shareModal">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share this Event</h5>
+                    <button type="button" (click)="closeShareModal()" class="close" data-dismiss="modal"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="social-icons" (click)="shareToPlatform('whatsapp')">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Whatsapp</span>
+                    </div>
+                    <hr>
+
+                    <div class="social-icons" (click)="shareToPlatform('instagram')">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </div>
+                    <hr>
+                    <div class="social-icons" (click)="shareToPlatform('facebook')">
+                        <i class="fab fa-facebook"></i>
+                        <span>facebook</span>
+                    </div>
+                    <hr>
+                    <div class="social-icons" (click)="shareToPlatform('twitter')">
+                        <i class="fab fa-twitter"></i>
+                        <span>Twitter</span>
+                    </div>
+                    <hr>
+                    <div class="social-icons" (click)="shareToPlatform('copylink')">
+                        <i class="fa fa-link"></i>
+                        <span>Copy Link</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--End Main Header -->
+    <!-- Banner Section -->
+
+    <!-- upcomming events -->
+    <section class="upcoming-events pt-0 sec-padding" *ngIf="this.similarEvents && this.similarEvents.length>0">
+
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-12 col-lg-12">
+                    <div class="section-title">
+                        <h2>
+                            Other Events
+                        </h2>
+                        <a href="Javascript:;" class="" (click)="navigateToEventListForSimilar()"><span
+                                class="btn-title">See all</span></a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="enent-cat sortable-handler">
+                <owl-carousel-o [options]="customOptions">
+                    <ng-container *ngFor="let similarevent of similarEvents;let i=index">
+                        <ng-template carouselSlide [id]="similarevent?._id">
+                            <div class="events-list" style="cursor: pointer;"
+                                (click)="navigateToEventDetails(similarevent?._id)">
+                                <div class="event-img">
+                                    <img src="{{ipPath}}{{similarevent?.eventImages?.eventCardImage}}" alt="event"
+                                        loading="lazy">
+                                    <!-- <div class="event-day" *ngIf="similarevent.eventEndDate!=similarevent.eventStartDate">
+                                        <span>{{similarevent.eventStartDate.toString().split('-')[2].split('T')[0]}} onwards</span>
+                                    </div> -->
+                                    <div class="location" *ngIf="similarEventTicketPrice[i]==0">Free</div>
+                                    <div class="location" *ngIf="similarEventTicketPrice[i]!=0">
+                                        ₹{{similarEventTicketPrice[i]}}</div>
+                                </div>
+                                <div class="text-light">
+                                    <a href="javascript:;"><i class="fas fa-map-marker-alt"></i>
+                                        {{similarevent.eventLocation.eventArea}}</a>
+                                </div>
+                                <div class="event-text">
+                                    <div class="date" *ngIf="similarevent.isMultiDateEvent==false">
+                                        <label>{{
+                                            months[parseInteger(similarevent.eventDates[0].eventDate.toString().split('-')[1]) - 1] }}</label>
+                                        <p>{{similarevent.eventDates[0].eventDate.toString().split('-')[2].split('T')[0]}}
+                                        </p>
+                                    </div>
+                                    <div class="date" *ngIf="similarevent.isMultiDateEvent==true">
+                                        <label>{{
+                                            months[parseInteger(similarevent.eventDates[0].eventDate.toString().split('-')[1]) - 1] }}</label>
+                                        <ng-container
+                                            *ngIf="isBeforeStartDate(similarevent.eventDates[0].eventDate.toString())">
+                                            <p>{{
+                                                similarevent.eventDates[0].eventDate.toString().split('-')[2].split('T')[0]
+                                                }}
+                                            </p>
+                                        </ng-container>
+                                        <ng-container
+                                            *ngIf="!isBeforeStartDate(similarevent.eventDates[0].eventDate.toString()) && isAfterStartDate(similarevent)">
+                                            <p>{{ currentDate.toString().split('-')[2].split('T')[0] }}</p>
+                                        </ng-container>
+                                        <!-- <ng-container
+                                            *ngIf="isAfterEndDate(similarevent.eventDates[similarevent.eventDates.length-1].eventDate.toString())">
+                                            <p>{{
+                                                similarevent.eventDates[similarevent.eventDates.length-1].eventDate.toString().split('-')[2].split('T')[0]
+                                                }}</p>
+                                        </ng-container> -->
+                                    </div>
+                                    <div class="desc">
+                                        <h3><a href="javascript:;">
+                                                {{capitalizeFirstChar(truncateTitle(similarevent.eventTitle,36))}}</a>
+                                        </h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </section>
+    <span (click)="toggleLike()" class="like-mob" [style.color]="isLiked ? '#ff0077' : '#fff'"
+        [style.background-color]="isLiked ? '#fff' : '#ff0077'">
+        <svg [class.liked]="isLiked" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
+            width="35" height="35" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+        </svg></span>
+    <!-- Main Footer -->
+    <app-footer></app-footer>
+
+    <!-- End Footer -->
+</div>
+<!-- svgs -->
+<svg class="sprites">
+    <symbol id="select-arrow-down" viewbox="0 0 10 6">
+        <polyline points="1 1 5 5 9 1"></polyline>
+    </symbol>
+</svg>
+<!-- login Modal -->
+<app-login-model></app-login-model>
+<app-list-yourevent></app-list-yourevent>
+<app-event-schema-component *ngIf="event" [event]="event"></app-event-schema-component>
+<!-- <app-book-event [eventTitle]="event?.eventTitle"></app-book-event> -->
+<!-- <div *ngIf="showDatePopup" class="modal-container"> -->
+<app-date-selection [availableDates]="availableDates" [availableTimes]="availableTimes"
+    (dateTimeConfirmed)="handleDateTimeConfirmation($event)"></app-date-selection>
+<app-ticket-popup [tickets]="availableTickets" [selectedDateTime]="selectedDateTime"
+    [eventId]="event?._id"></app-ticket-popup>

@@ -1,0 +1,53 @@
+<div class="page-wrapper">
+    <!-- Main Header-->
+    <app-userheader></app-userheader>
+    <!-- sidenav -->
+    <!--End Main Header -->
+    <!-- Banner Section -->
+    <!-- <section class="banner-section">
+        <div class="banner-carousel owl-carousel owl-theme">
+            
+            <div class="slide-item">
+                <img src="images/main-slider/1.jpg" alt="slide">
+            </div>
+            
+            <div class="slide-item">
+                <img src="images/main-slider/2.jpg" alt="slide">
+            </div>
+        </div>
+    </section> -->
+    <!--End Banner Section -->
+    
+    
+    <!-- categories -->
+    <section class="categories sec-padding">
+        <div class="container">
+            <div class="row" *ngIf="blog">
+                <div class="col-md-12">
+                    <div class="blog_img_card">
+                        <img src="{{ipPath}}{{blog.blogImage}}"
+                            alt="Categories">
+                    </div>
+                    <div class="blog_content">
+                        <h2><a href="javascript:;"> {{blog.blogTitle}}</a></h2>
+                        <p>{{blog.blogContent}}</p>
+                        <blockquote class="long_quote_text">
+                            <p>{{blog.blogHighlight}}</p>
+                        </blockquote>
+                        <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard
+                            dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type
+                            specimen
+                            book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and
+                            more
+                            recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p> -->
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+    <!-- End categories -->
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,394 @@
+<div class="page-wrapper detail-main">
+    <!-- Main Header-->
+    <app-userheader></app-userheader>
+    <!--End Main Header -->
+
+    <!-- Banner Section -->
+    <section class="product-detail sec-padding">
+        <div class="container">
+            <div class="row hide-desktop">
+                <div class="col-lg-12" *ngIf="dataInitialized">
+                    <div class="cart-card cart-summery" *ngIf="isticketsDataSet">
+                        <div class="booking-cart-box">
+                            <h3>Booking Info</h3>
+                            <hr>
+                            <div *ngIf="eventId==eventData._id">
+                                <h2 style="font-size: 20px;"
+                                    *ngIf="eventId==eventData._id && order.ticketDate.split('T')[0]=='2023-12-30'">
+                                    {{eventData.eventTitle}} (ADITYA GADHVI)</h2>
+                                <h2 style="font-size: 20px;"
+                                    *ngIf="eventId==eventData._id && order.ticketDate.split('T')[0]=='2023-12-31'">
+                                    {{eventData.eventTitle}} (DJ AKSHIL)</h2>
+                            </div>
+                            <div *ngIf="eventId!=eventData._id">
+                                <h2 style="font-size: 20px;">{{eventData.eventTitle}}</h2>
+                            </div>
+                            <!-- <p *ngIf="order">{{this.order.ticketDate.split('T')[0]}} -
+                                {{startTime.eventStartTime}}</p>
+                            <p *ngIf="regularOrder">{{this.regularOrder.ticketDate.split('T')[0]}} -
+                                {{startTime.eventStartTime}}</p> -->
+                            <p *ngIf="order">{{eventDateTime}} {{startTime.eventStartTime}}</p>
+                            <h2>{{eventData.eventLocation.eventVenue}}</h2>
+                            <p>{{eventData.eventLocation.eventAddress}}</p>
+                        </div>
+                        <div class="booking-cart-box" *ngIf="order && !isPromocodeApplied">
+                            <h2 class="pt-30">{{totalCount}} Tickets</h2>
+                            <p *ngFor="let tickets of ticketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹ {{order.totalPrice}}</span></h2>
+                        </div>
+                        <div class="booking-cart-box" *ngIf="order && isPromocodeApplied">
+                            <h2 class="pt-30">{{totalCount}} Tickets</h2>
+                            <p *ngFor="let tickets of ticketData">
+                                {{tickets.ticket.ticketTitle}} ({{tickets.quantity}})
+                                <span>
+                                    {{tickets.ticket.ticketPrice * tickets.quantity}}
+                                    <s
+                                        *ngIf="tickets.ticket.originalPrice && tickets.ticket?.originalPrice!=tickets.ticket.ticketPrice">
+                                        {{tickets.ticket?.originalPrice * tickets.quantity}}
+                                    </s>
+                                </span>
+                            </p>
+
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹ {{order.totalPrice}}</span></h2>
+                        </div>
+
+                        <div class="booking-cart-box" *ngIf="regularOrder && seasonOrder">
+                            <h2 class="pt-30">{{regularCount+seasonCount}} Tickets</h2>
+                            <p *ngFor="let tickets of regularTicketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+                            <p *ngFor="let tickets of seasonTicketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹
+                                    {{regularOrder.totalPrice+seasonOrder.totalPrice}}</span></h2>
+                        </div>
+                        <!-- loggedin -->
+                        <div class="promocode-container" *ngIf="profile && availablePromocodes.length>0">
+                            <div class="promocode-box">
+                                <div class="promocode-heading">
+                                    <h2>Showmates Offers</h2>
+                                </div>
+                                <ul class="promocode-list">
+                                    <li class="promocode-item" *ngFor="let promocode of availablePromocodes">
+                                        <label>
+                                            <input type="checkbox" (click)="changeOrderSummary(promocode)"
+                                                class="promocode-checkbox">
+                                            <span class="promocode-label">{{promocode?.promocode}}</span>
+                                            <p class="promocode-description">{{promocode?.description}}</p>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- not loggedin -->
+                        <div class="promocode-container" *ngIf="!profile && availablePromocodes.length>0">
+                            <div class="promocode-box">
+                                <div class="promocode-heading">
+                                    <h2>Showmates Offers</h2>
+                                </div>
+                                <ul class="promocode-list">
+                                    <li class="promocode-item" *ngFor="let promocode of availablePromocodes">
+                                        <label>
+                                            <input type="checkbox" class="promocode-checkbox" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal" (click)="keepItUnchecked(this)">
+                                            <span class="promocode-label" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">{{promocode?.promocode}}</span>
+                                            <p class="promocode-description" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">{{promocode?.description}}</p>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <a *ngIf="profile" class="btn-book" (click)="initOrder()">Book Now</a>
+                        <a *ngIf="!profile" class="btn-book" data-bs-toggle="modal" data-bs-target="#loginModal">Login
+                            To Proceed</a>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="cart-card d-none">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <!-- <div class="cart-login">
+                                    <h3>Cart</h3>
+                                    <hr>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing, elit.</p>
+                                </div> -->
+                            </div>
+                            <div class="col-md-3">
+                                <div class="cart-signin">
+                                    <a href="#">Signin</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-card">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="cart-login">
+                                    <div class="cart-head clicked">
+                                        <div class="check-box"></div>
+                                        <input type="radio" id="test1" name="radio-group" checked>
+                                        <h3>E-Tickets for Eco-Friendly Travel:</h3>
+                                        <hr>
+                                        <p>"Go Green with E-Tickets! Save paper and the environment by choosing
+                                            e-tickets for your bookings."
+                                        </p>
+                                    </div>
+                                    <div class="cart-head clicked">
+                                        <div class="check-box"></div>
+                                        <input type="radio" id="test1" name="radio-group" checked>
+                                        <h3>QR Code Entry:</h3>
+                                        <hr>
+                                        <p>"Easy Entry: Check your email for your ticket's QR code. Show it at the venue
+                                            for hassle-free access."
+                                        </p>
+                                    </div>
+                                    <div class="cart-head clicked">
+                                        <div class="check-box"></div>
+                                        <input type="radio" id="test1" name="radio-group" checked>
+                                        <h3>My Tickets Section:</h3>
+                                        <hr>
+                                        <p>"Manage Your Tickets: Access all your purchased ticket details anytime in the
+                                            'My Tickets' section."
+                                        </p>
+                                    </div>
+                                    <div class="cart-head d-none">
+                                        <div class="check-box"></div>
+                                        <input type="radio" id="test1" name="radio-group" checked>
+                                        <h3>Cart</h3>
+                                        <hr>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing, elit.</p>
+                                        <h3>Cart</h3>
+                                        <ul>
+                                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing, elit.</li>
+                                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing, elit.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="cart-card d-none contact-info">
+                        <h3>Share Your Contact Details</h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Phone">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cart-card ticket-info d-none">
+                        <h3 class="">Share Your Contact Details</h3>
+
+                        <div class="row ">
+                            <div class="col-md-4">
+                                <div class="ticket-card">
+                                    <div class="ticket-icon">
+                                        <img src="https://placehold.co/70x70" alt="">
+                                    </div>
+                                    <span>Contact Details</span>
+                                    <h4>$149</h4>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="same" checked="checked">
+                                        <span>+</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ticket-card">
+                                    <div class="ticket-icon">
+                                        <img src="https://placehold.co/70x70" alt="">
+                                    </div>
+                                    <span>Contact Details</span>
+                                    <h4>$149</h4>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="same" checked="checked">
+                                        <span>+</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ticket-card">
+                                    <div class="ticket-icon">
+                                        <img src="https://placehold.co/70x70" alt="">
+                                    </div>
+                                    <span>Contact Details</span>
+                                    <h4>$149</h4>
+                                    <div class="btn-radio">
+                                        <input type="radio" name="same" checked="checked">
+                                        <span>+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="plus-minus">
+                                    <label for="">Number of seats</label>
+                                    <div class="number">
+                                        <span class="minus">-</span>
+                                        <input type="text" value="1" />
+                                        <span class="plus">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="Promo-code">
+                                    <input type="text" class="code-in" placeholder="Please Enter Promo code">
+                                    <button class="btn-code" data-bs-toggle="modal"
+                                        data-bs-target="#mybookcal">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 hide-mobile" *ngIf="dataInitialized">
+
+                    <div class="cart-card cart-summery" *ngIf="isticketsDataSet">
+                        <div class="booking-cart-box">
+                            <h3>Booking Info</h3>
+                            <hr>
+                            <div *ngIf="eventId==eventData._id">
+                                <h2 style="font-size: 20px;"
+                                    *ngIf="eventId==eventData._id && order.ticketDate.split('T')[0]=='2023-12-30'">
+                                    {{eventData.eventTitle}} (ADITYA GADHVI)</h2>
+                                <h2 style="font-size: 20px;"
+                                    *ngIf="eventId==eventData._id && order.ticketDate.split('T')[0]=='2023-12-31'">
+                                    {{eventData.eventTitle}} (DJ AKSHIL)</h2>
+                            </div>
+                            <div *ngIf="eventId!=eventData._id">
+                                <h2 style="font-size: 20px;">{{eventData.eventTitle}}</h2>
+                            </div>
+
+                            <!-- <p *ngIf="order">{{this.order.ticketDate.split('T')[0]}} -
+                                {{startTime.eventStartTime}}</p>
+                            <p *ngIf="regularOrder">{{this.regularOrder.ticketDate.split('T')[0]}} -
+                                {{startTime.eventStartTime}}</p> -->
+                            <p *ngIf="order">{{eventDateTime}} {{startTime.eventStartTime}}</p>
+                            <h2>{{eventData.eventLocation.eventVenue}}</h2>
+                            <p>{{eventData.eventLocation.eventAddress}}</p>
+                        </div>
+                        <div class="booking-cart-box" *ngIf="order && !isPromocodeApplied">
+                            <h2 class="pt-30">{{totalCount}} Tickets</h2>
+                            <p *ngFor="let tickets of ticketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹ {{order.totalPrice}}</span></h2>
+                        </div>
+                        <div class="booking-cart-box" *ngIf="order && isPromocodeApplied">
+                            <h2 class="pt-30">{{totalCount}} Tickets</h2>
+                            <p *ngFor="let tickets of ticketData">
+                                {{tickets.ticket.ticketTitle}} ({{tickets.quantity}})
+                                <span>
+                                    {{tickets.ticket.ticketPrice * tickets.quantity}}
+                                    <s
+                                        *ngIf="tickets.ticket.originalPrice && tickets.ticket?.originalPrice!=tickets.ticket.ticketPrice">
+                                        {{tickets.ticket?.originalPrice * tickets.quantity}}
+                                    </s>
+                                </span>
+                            </p>
+
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹ {{order.totalPrice}}</span></h2>
+                        </div>
+                        <div class="booking-cart-box" *ngIf="regularOrder && seasonOrder">
+                            <h2 class="pt-30">{{regularCount+seasonCount}} Tickets</h2>
+                            <p *ngFor="let tickets of regularTicketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+                            <p *ngFor="let tickets of seasonTicketData">{{tickets.ticket.ticketTitle}}
+                                ({{tickets.quantity}})<span>{{tickets.ticket.ticketPrice * tickets.quantity}}</span></p>
+                            <hr>
+                            <h2 class="payable">Amount Payable <span>₹
+                                    {{regularOrder.totalPrice+seasonOrder.totalPrice}}</span></h2>
+                        </div>
+                        <!-- loggedin -->
+                        <div class="promocode-container" *ngIf="profile && availablePromocodes.length>0">
+                            <div class="promocode-box">
+                                <div class="promocode-heading">
+                                    <h2>Showmates Offers</h2>
+                                </div>
+                                <ul class="promocode-list">
+                                    <li class="promocode-item" *ngFor="let promocode of availablePromocodes">
+                                        <label>
+                                            <input type="checkbox" (click)="changeOrderSummary(promocode)"
+                                                class="promocode-checkbox">
+                                            <span class="promocode-label">{{promocode?.promocode}}</span>
+                                            <p class="promocode-description">{{promocode?.description}}</p>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- not loggedin -->
+                        <div class="promocode-container" *ngIf="!profile && availablePromocodes.length>0">
+                            <div class="promocode-box">
+                                <div class="promocode-heading">
+                                    <h2>Showmates Offers</h2>
+                                </div>
+                                <ul class="promocode-list">
+                                    <li class="promocode-item" *ngFor="let promocode of availablePromocodes">
+                                        <label>
+                                            <input type="checkbox" class="promocode-checkbox"
+                                                (click)="keepItUnchecked(this)" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">
+                                            <span class="promocode-label" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">{{promocode?.promocode}}</span>
+                                            <p class="promocode-description" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">{{promocode?.description}}</p>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a *ngIf="profile" class="btn-book" (click)="initOrder()">Book Now</a>
+                        <a *ngIf="!profile" class="btn-book" data-bs-toggle="modal" data-bs-target="#loginModal">Login
+                            To Proceed</a>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Main Footer -->
+
+    <!-- End Footer -->
+</div>
+<app-footer></app-footer>
+<app-login-model></app-login-model>

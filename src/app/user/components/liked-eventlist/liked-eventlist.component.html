@@ -1,0 +1,177 @@
+<div class="page-wrapper">
+    <!-- Main Header-->
+    <app-userheader></app-userheader>
+    <!--End Main Header -->
+    <!--Product Start-->
+    <section class="product">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3">
+                    <div class="product__sidebar">
+                        <div class="product__price-ranger product__sidebar-single pb-md-0">
+                            <h3 class="product__sidebar-title mb-md-0 display-filter"><span>Filters</span>
+                                <div class="d-flex align-items-center gap-3">
+                                    <a href="javascript:;" (click)="clearFilter()">Clear all</a>
+                                    <span (click)="openFilter()"><svg >
+                                        <use xlink:href="#select-arrow-down" (click)="openFilter()"></use>
+                                    </svg></span>
+                                </div>
+                            </h3>
+                        </div>
+                        <div class="filter-box" [style.display]="filterOpen">
+                            <div class="product__price-ranger product__sidebar-single pt-0">
+                                <div class="price-input mt-md-4 mt-0">
+                                    <input type="date" placeholder="select date" class="form-control" [min]="minDate" [(ngModel)]="dateSelected">
+                                </div>
+                                <p>{{dateSelected}}</p>
+                                <div class="price-input">
+                                    <div class="select-box">
+                                        <select name="" id="" [(ngModel)]="selectedLanguage" >
+                                            <option value="">Select Language</option>
+                                            <option value="english">English</option>
+                                            <option value="hindi">Hindi</option>
+                                        </select>
+                                        <svg>
+                                            <use xlink:href="#select-arrow-down"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <h3 class="product__sidebar-title pb-2">Price</h3>
+                                  
+                                <div class="slider">
+                                    <div class="progress" [style.left]="left" [style.right]="right"></div>
+                                </div>
+                                <div class="range-input"  (mousedown)="handleSliderDrag($event)"
+                                (mousemove)="handleSliderDrag($event)"
+                                (mouseup)="handleSliderDrag($event)"
+                                (mouseleave)="handleSliderDrag($event)">
+                                    <input type="range" class="range-min" min="0" max="10000" value="{{minPrice}}" step="100" [(ngModel)]="minPrice">
+                                    <input type="range" class="range-max" min="0" max="10000" value="{{maxPrice}}" step="100" [(ngModel)]="maxPrice">
+                                </div>
+                                <div class="price-input">
+                                    <div class="field">
+                                        <input type="number" class="input-min" value="{{minPrice}}">
+                                    </div>
+                                    <div class="field">
+                                        <input type="number" class="input-max" value="{{maxPrice}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="shop-category product__sidebar-single">
+                                <h3 class="product__sidebar-title display-cat"><span>Categories </span> <svg>
+                                        <use xlink:href="#select-arrow-down"></use>
+                                    </svg></h3>
+                                <ul class="list-unstyled">
+                                  <li class="active" *ngFor="let item of categoryItems" [class.active]="item.isActive" (click)="selectValue(item.name)"><a>{{ item.name }}</a></li>
+                                </ul>
+                            </div>
+                            <div class="product__price-ranger product__sidebar-single">
+                                <a href="javascript:;" type="button" class="btn-style-one"><span class="btn-title" >Search</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-9">
+                    <div class="product__items">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="product__showing-result">
+                                    
+                                    <div class="product__menu-showing-sort">
+                                        <div class="product__showing-sort">
+                                            <div class="select-box">
+                                                <select class="wide"  [(ngModel)]="sortBy" (ngModelChange)="onSortByChange($event)">
+                                                    <option value="">Sort by</option>
+                                                    <option value="lth">Sort by Price Low to High</option>
+                                                    <option value="htl">Sort by Price High to low</option>
+                                                </select>
+                                                <svg>
+                                                    <use xlink:href="#select-arrow-down"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product__all">
+                            <div class="enent-cat">
+                                <div class="row" >
+                                  <p>{{filterText}}</p>
+                                    <div class="col-6 col-sm-6 col-md-4 col-lg-4 col-xl-3" (click)="navigateToEventDetails(event._id)" *ngFor="let event of filteredData | search: filterText">
+                                        <div class="events-list" style="cursor: pointer;">
+                                            <div class="event-img">
+                                                <img src="{{ipPath}}{{event.eventImages.eventCardImage}}" alt="event">
+                                                <div class="location">₹{{event.eventTicketPrice}}</div>
+                                            </div>
+                                            <div class="text-light">
+                                                <a href="javascript:;"><i class="fas fa-map-marker-alt"></i> {{event.eventLocation.eventArea}}</a>
+                                            </div>
+                                            <div class="event-text">
+                                                <div class="date">
+                                                    <label>{{months[event.eventStartDate.split('-')[1][1]-1]}}</label>
+                                                    <p>{{event.eventStartDate.split('-')[2]}}</p>
+                                                </div>
+                                                <div class="desc">
+                                                    <h3><a href="javascript:;"> {{capitalizeFirstChar(event.eventTitle)}}</a></h3>
+                                                    <!-- <strong>₹123</strong> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Product End-->
+  </div>
+  <!-- Main Footer -->
+  <app-footer></app-footer>
+  <!-- End Footer -->
+  <!-- svgs -->
+  <svg class="sprites">
+    <symbol id="select-arrow-down" viewbox="0 0 10 6">
+        <polyline points="1 1 5 5 9 1"></polyline>
+    </symbol>
+  </svg>
+  <!-- login Modal -->
+  <app-login-model></app-login-model>
+  <!-- profile modal -->
+  <div class="modal fade search-popup popup-visible" id="profileModel" tabindex="-1" aria-labelledby="profileModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-0">
+                <div class="popup-inner">
+                    <div class="search-form">
+                        <form method="post" action="Javascript:;">
+                            <div class="form-group">
+                                <fieldset>
+                                    <input type="text" class="form-control" name="search-input" value="" placeholder="Enter Your Name">
+                                </fieldset>
+                                <fieldset>
+                                    <input type="email" class="form-control" name="search-input" value="" placeholder="Enter Your Email">
+                                </fieldset>
+                                <fieldset>
+                                    <input type="date" class="form-control" name="search-input" value="" placeholder="Enter Your Birthdate">
+                                </fieldset>
+                                <fieldset>
+                                    <button type="submit" class="btn-style-one" data-bs-toggle="modal" data-bs-target="#profileModel"><span class="btn-title">Submit</span></button>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <app-list-yourevent></app-list-yourevent>
+  

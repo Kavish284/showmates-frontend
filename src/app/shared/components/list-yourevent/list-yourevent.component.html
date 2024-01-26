@@ -1,0 +1,88 @@
+<div class="modal fade search-popup popup-visible" id="listYourEventModel" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" id="closeAddEvent" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-0" *ngIf="flag">
+
+                <div class="popup-inner">
+                    <div class="search-form">
+                        <form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="contact_form">
+                            <div class="form-group">
+                                <fieldset>
+                                    <input class="form-control" type="text" placeholder="Your Name"
+                                        formControlName="yourName">
+                                    <div *ngIf="eventForm.get('yourName').invalid && (eventForm.get('yourName').dirty || eventForm.get('yourName').touched)"
+                                        class="error-message">
+                                        <div *ngIf="eventForm.get('yourName').errors['required']">name is required.
+                                        </div>
+                                        <div *ngIf="eventForm.get('yourName').errors['invalidLength']">name must be between 2 to 50 letters.
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <input class="form-control" type="text" placeholder="Your Contact number"
+                                        formControlName="yourContactNumber">
+                                    <div *ngIf="eventForm.get('yourContactNumber').invalid && (eventForm.get('yourContactNumber').dirty || eventForm.get('yourContactNumber').touched)"
+                                        class="error-message">
+                                        <div *ngIf="eventForm.get('yourContactNumber').errors['required']">Phone number
+                                            is required.</div>
+                                        <div *ngIf="eventForm.get('yourContactNumber').errors['minlength']">Phone number
+                                            must be of 10
+                                            digits.</div>
+                                        <div *ngIf="eventForm.get('yourContactNumber').errors['pattern']">please enter
+                                            valid phone
+                                            number.</div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <input class="form-control" type="email" placeholder="Your Email"
+                                        formControlName="yourEmail">
+                                    <div *ngIf="eventForm.get('yourEmail').invalid && (eventForm.get('yourEmail').dirty || eventForm.get('yourEmail').touched)"
+                                        class="error-message">
+                                        <div *ngIf="eventForm.get('yourEmail').errors['required']">Email is required.
+                                        </div>
+                                        <div *ngIf="eventForm.get('yourEmail').errors['invalidEmail']">Enter valid
+                                            email.</div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <select data-live-search="true" data-width="100%" formControlName="eventCatagory"
+                                        class="form-select">
+                                        <option value="select an option">Select Category</option>
+                                        <option *ngFor="let catagory of catagories" [value]="catagory.catagoryName">
+                                            {{catagory.catagoryName}}</option>
+                                    </select>
+                                    <div *ngIf="eventForm.get('eventCatagory').invalid && (eventForm.get('eventCatagory').dirty || eventForm.get('eventCatagory').touched)"
+                                        class="error-message">
+                                        <div *ngIf="eventForm.get('eventCatagory').errors['required']">Catagory is
+                                            required.</div>
+
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <input class="form-control" type="number" placeholder="Approximate number of people"
+                                        formControlName="numberOfPeople" min="0">
+                                    <div *ngIf="eventForm.get('numberOfPeople').invalid && (eventForm.get('numberOfPeople').dirty || eventForm.get('numberOfPeople').touched)"
+                                        class="error-message">
+                                        <div *ngIf="eventForm.get('numberOfPeople').errors['required']">Number of People
+                                            is required.</div>
+                                        <div *ngIf="eventForm.get('numberOfPeople').errors['min']">Number of people
+                                            cannot be less than 5.</div>
+                                    </div>
+                                </fieldset>
+                                <fieldset>
+                                    <button type="submit" class="btn-style-one"><span
+                                            class="btn-title">Submit</span></button>
+                                </fieldset>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

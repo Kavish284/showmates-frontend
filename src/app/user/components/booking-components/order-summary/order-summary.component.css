@@ -1,0 +1,75 @@
+/* for promocode */
+.promocode-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  width: 100%; /* Add this line to make it full width */
+}
+
+.promocode-box {
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%; /* Adjust the width as per your design */
+  max-width: 400px; /* Set a maximum width if needed */
+  /* Add the following line to center the box within the container */
+  margin-left: auto;
+  margin-right: auto;
+}
+  
+  .promocode-heading {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .promocode-heading h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .promocode-description {
+    font-size: small;
+    color: #888;
+  }
+  .promocode-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .promocode-item {
+    margin-bottom: 10px;
+  }
+  
+  .promocode-checkbox {
+    margin-right: 10px;
+  }
+  
+  .promocode-checkbox,
+  .promocode-label,
+  .promocode-description {
+    cursor: pointer;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 767px) {
+    .promocode-box {
+      padding: 10px;
+    }
+    
+    .promocode-heading h2 {
+      font-size: 20px;
+    }
+  }
+
+  /* for price cut */
+  .ticket-price-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .original-price s {
+    text-decoration: line-through;
+    color: #888;
+  }

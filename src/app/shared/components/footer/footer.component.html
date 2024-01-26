@@ -1,0 +1,91 @@
+<footer class="main-footer">
+    <!--Widgets Section-->
+    <div class="widgets-section">
+        <div class="container">
+            <div class="row">
+                <!--Big Column-->
+                <!--Footer Column-->
+                <div class="footer-column col-xl-3 col-lg-3 col-md-6 col-sm-12">
+                    <div class="footer-widget about-widget">
+                        <div class="logo">
+                            <a (click)="navigateToHome()"><img src="../../../../assets/images/logo.svg" alt="" title=""></a>
+                        </div>
+                        <div class="text">
+                            <p>Discover and book tickets for your favorite events effortlessly at our website. Explore a wide range of categories, with a user-friendly interface for easy browsing and ticket reservation. Don't miss out on exclusive deals and opportunities. Join us now!
+
+                            </p>
+                        </div>
+                        <ul class="social-icon-one social-icon-colored">
+                            <li><a href="https://instagram.com/showmates.in?igshid=MzRlODBiNWFlZA=="><i class="fab fa-instagram"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/showmates.in"><i class="fab fa-linkedin"></i></a></li>
+                            <li><a href="mailto:showmates759@gmail.com"><i class="fab fa-google"></i></a></li>
+                            <li><a href="https://facebook.com/showmates.in"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="https://twitter.com/_showmates_"><i class="fab fa-twitter"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!--Footer Column-->
+                <div class="footer-column col-xl-2 col-lg-2 col-md-6 col-sm-12">
+                    <div class="footer-widget useful-links">
+                        <h2 class="widget-title">Categories</h2>
+                        <ul class="user-links">
+                            <li><a href="javascript:;" (click)="navigateToList('Stand-up')">Stand up</a></li>
+                            <li><a href="javascript:;" (click)="navigateToList('Concert')">Concert</a></li>
+                            <li><a href="javascript:;" (click)="navigateToList('Festival')">Festival</a></li>
+                            <li><a href="javascript:;" (click)="navigateToList('Food and drinks')">Food and drinks</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="footer-column col-xl-2 col-lg-2 col-md-4 col-sm-12">
+                    <div class="footer-widget useful-links">
+                        <h2 class="widget-title">Contact Us</h2>
+                        <ul class="user-links">
+                            <li *ngIf="!mobileView"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=showmates759@gmail.com" target="_blank">showmates759@gmail.com</a></li>
+                            <li *ngIf="mobileView"><a href="mailto:showmates759@gmail.com">showmates759@gmail.com</a></li>
+                            <li><a href="tel:+91 8128024338"> +91 81280 - 24338</a></li> 
+                            <li><a routerLink="/blog"> Blogs</a></li> 
+                            <li><a routerLink="/policy"> Privacy Policy
+                            </a></li> 
+                            <li><a routerLink="/termsandcondition"> Terms & Conditions</a></li> 
+                        </ul>
+                       
+                    </div>
+                </div>
+                <!--Footer Column-->
+                <div class="footer-column col-xl-5 col-lg-4 col-md-8 col-sm-12">
+                    <!--Footer Column-->
+                    <div class="footer-widget about-widget">
+                        <h2 class="widget-title">Stay in the loop</h2>
+                        <div class="text">
+                            <p>Join our whatsapp comunity to stay in the loop with our newest Event and concert
+                            </p>
+                        </div>
+                        <div class="widget-content">
+                            <div class="subscribe-form">
+                                <div class="form-inner">
+                                    <form method="post" (onsubmit)="addNumber()">
+                                        <div class="form-group">
+                                            <input [(ngModel)]="whatsappNumber" type="text" name="phone" placeholder="Enter your mobile number.." required>
+                                            <button type="submit" class="theme-btn" (click)="addNumber()">Subscibe Now</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Footer Bottom-->
+    <div class="footer-bottom">
+        <div class="auto-container">
+            <div class="inner-container clearfix">
+                <div class="copyright-text">
+                    <p>© 2023 Showmates. All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </footer>

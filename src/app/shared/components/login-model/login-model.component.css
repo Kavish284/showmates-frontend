@@ -1,0 +1,58 @@
+.error-message{
+    color: red;
+}
+
+.modal-dialog {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    align-items: flex-start;
+    margin-top: 10%;
+}
+
+/* Style for OTP input boxes */
+.otp-input {
+    width: 3em;
+    text-align: center;
+    margin: 0 0.2em;
+}
+
+/* Style to display OTP boxes horizontally */
+.otp-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Round the edges of the modals */
+.modal-content {
+    border-radius: 10px;
+}
+
+/* Center the SVG */
+.center-svg {
+    display: flex;
+    justify-content: center;
+}
+
+/* Style for the note in the second modal */
+.note {
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 576px) {
+    .modal-dialog {
+        margin: 0;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.btn-sm,
+.btn-lg {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+}

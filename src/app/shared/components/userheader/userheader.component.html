@@ -1,0 +1,219 @@
+<div class="mobile-header">
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="logo">
+                <a routerLink="/"><img src="../../../../assets/images/logo.svg" alt=""
+                    title=""></a>
+            </div>
+        </div>
+        <div class="col-lg-9 col-6">
+            <ul>
+                <li><a data-bs-toggle="modal" data-bs-target="#SearchModal"><span class="fas fa-search"></span></a></li>
+                <li><span onclick="openNav()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-list" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path d="M9 6l11 0"></path>
+                    <path d="M9 12l11 0"></path>
+                    <path d="M9 18l11 0"></path>
+                    <path d="M5 6l0 .01"></path>
+                    <path d="M5 12l0 .01"></path>
+                    <path d="M5 18l0 .01"></path>
+                </svg> </span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<header class="main-header">
+    <div class="main-box">
+        <div class="container">
+            <div class="nav-flex">
+                <div class="logo-box">
+                    <div class="logo"><a routerLink="/"><img src="../../../../assets/images/logo.svg" alt=""
+                                title=""></a></div>
+                    <div class="logo-right">
+                        <div class="search-box-outer">
+                            <form action="#">
+                                <div class="form-group">
+                                    <input type="search" class="form-control" name="search-input" value="" id="search"
+                                        placeholder="Search Here" required>
+                                    <a class="search-box-btn"><span class="fas fa-search"></span></a>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="btn-box mob-toggle">
+                            <span onclick="openNav()"><svg xmlns="http://www.w3.org/2000/svg"
+                                    class="icon icon-tabler icon-tabler-list" width="30" height="30" viewBox="0 0 24 24"
+                                    stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M9 6l11 0"></path>
+                                    <path d="M9 12l11 0"></path>
+                                    <path d="M9 18l11 0"></path>
+                                    <path d="M5 6l0 .01"></path>
+                                    <path d="M5 12l0 .01"></path>
+                                    <path d="M5 18l0 .01"></path>
+                                </svg> </span>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="nav-outer clearfix">
+                    <nav class="main-menu navbar-expand-md navbar-light">
+                        <div class="collapse navbar-collapse clearfix" id="navbarSupportedContent">
+                            <ul class="navigation clearfix">
+                                <li routerLinkActive="current" [routerLinkActiveOptions]="{exact: true}">
+                                    <a routerLink="/">Home</a>
+                                </li>
+                                <li routerLinkActive="current">
+                                    <a routerLink="/event-list">Events</a></li>
+                                <li routerLinkActive="current">
+                                    <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#listYourEventModel">List Your Event</a></li>
+                                <!-- <li><a href="Javascript:;">Contact</a></li> -->
+                                <li><a href="javascript:;" data-bs-toggle="modal" data-bs-target="#SearchModal"><span
+                                            class="fas fa-search"></span></a></li>
+                            </ul>
+                            <div class="outer-box">
+
+                                <div class="btn-box">
+                                    <a *ngIf="!profile" class="theme-btn btn-style-one bt-outline"
+                                        data-bs-toggle="modal" data-bs-target="#loginModal"><span
+                                            class="btn-title" id="openLogin">Login</span></a>
+                                    <span *ngIf="profile" onclick="openNav()"><svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-list" width="30" height="30"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                            <path d="M9 6l11 0"></path>
+                                            <path d="M9 12l11 0"></path>
+                                            <path d="M9 18l11 0"></path>
+                                            <path d="M5 6l0 .01"></path>
+                                            <path d="M5 12l0 .01"></path>
+                                            <path d="M5 18l0 .01"></path>
+                                        </svg> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div id="mySidenav" class="sidenav" *ngIf="profile || mobile">
+    <a href="javascript:void(0)" class="closebtn" id="sidenav" onclick="closeNav()">&times;</a>
+    <div class="sidenav-profile">
+        <div class="profile-img">
+            <img width="70" height="70" src="../../../../assets/images/icon/user.png" alt="user-male-circle"/>
+        </div>
+        <div class="profile-details">
+            <h3 *ngIf="profile && profile.name.length > 0">Hey, {{profile.name}}</h3>
+            <h3 *ngIf="profile && profile.name.length==0">Hey, Mate</h3>
+            <h3 *ngIf="!profile"
+            data-bs-toggle="modal" data-bs-target="#loginModal" (click)="closeNav()" style="cursor: pointer;">Hey, Mate</h3>
+            <!-- <span>10 July 2023</span> -->
+        </div>
+
+    </div>
+    <div class="sidenav-link">
+        <a routerLink="/" routerLinkActive="current"  (click)="closeNav()" [routerLinkActiveOptions]="{exact: true}"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home"
+                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M5 12l-2 0l9 -9l9 9l-2 0"></path>
+                <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7"></path>
+                <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6"></path>
+            </svg>Home</a>
+        <a routerLink="/event-list" routerLinkActive="current" (click)="closeNav()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-event" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 5m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+                <path d="M16 3l0 4"></path>
+                <path d="M8 3l0 4"></path>
+                <path d="M4 11l16 0"></path>
+                <path d="M8 15h2v2h-2z"></path>
+            </svg>Events</a>
+        <a *ngIf="profile" routerLink="/tickets" routerLinkActive="current" (click)="closeNav()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ticket"
+                width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M15 5l0 2"></path>
+                <path d="M15 11l0 2"></path>
+                <path d="M15 17l0 2"></path>
+                <path
+                    d="M5 5h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-3a2 2 0 0 0 0 -4v-3a2 2 0 0 1 2 -2">
+                </path>
+            </svg>My Tickets</a>
+        <a *ngIf="profile" routerLink="/user-profile" routerLinkActive="current" (click)="closeNav()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0"></path>
+                <path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855"></path>
+            </svg>Profile</a>
+        <a *ngIf="!profile"
+            data-bs-toggle="modal" data-bs-target="#loginModal" (click)="closeNav()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-login-alt" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2 -2v-2"></path>
+                <path d="M20 12h-13l3 -3m0 6l-3 -3"></path>
+            </svg>
+
+                Login</a>
+        <a *ngIf="profile" href="/" (click)="logout()">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="24"
+                height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2"></path>
+                <path d="M9 12h12l-3 -3"></path>
+                <path d="M18 15l3 -3"></path>
+            </svg>logout</a>
+
+    </div>
+</div>
+<div class="modal" id="SearchModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h3>Find Your Next Event</h3>
+                <div class="search-card">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="search-box">
+                                <label for=""></label>
+                                <input (keyup.enter)="findEvent()" type="text" placeholder="Search" [(ngModel)]="eventName" required>
+                                <span class="fas fa-search" (click)="findEvent()"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <p>Or browse by category</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <div class="cate-list" >
+                                <a (click)="navigateToList('Concert')" class="cate-box">
+                                    <img src="../../../../assets/gif/electric-guitar.gif" alt="Animated GIF"><span>Concert</span></a>
+                                <a (click)="navigateToList('Stand-up')" class="cate-box">
+                                    <img src="../../../../assets/gif/microphone.gif" alt="Animated GIF"> <span>Stand up</span></a>
+                                <a (click)="navigateToList('Festival')"  class="cate-box">
+                                    <img src="../../../../assets/gif/meteor-rain.gif" alt="Animated GIF"><span>Festival</span></a> 
+                                <a (click)="navigateToList('Food and drinks')"  *ngIf="!mobile" class="cate-box">
+                                    <img src="../../../../assets/gif/burger.gif" alt="Animated GIF"><span>Food & Drinks</span></a>
+                                <a (click)="navigateToList('Business')"  *ngIf="!mobile" class="cate-box">
+                                    <img src="../../../../assets/gif/weightlifting.gif" alt="Animated GIF"> <span>Business</span></a>
+                                <a (click)="navigateToList('Education')"  *ngIf="!mobile" class="cate-box">
+                                    <img src="../../../../assets/gif/book.gif" alt="Animated GIF"><span>Education</span></a>                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" id="closeSearch"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <app-list-yourevent></app-list-yourevent> -->

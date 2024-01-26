@@ -1,0 +1,137 @@
+<app-userheader></app-userheader>
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px" src="../../../../assets/images/noavtar.png">
+                <span class="font-weight-bold">{{profile?.name}}</span>
+                <span class="text-black-50">{{profile?.email}}</span><span> </span>
+            </div>
+        </div>
+        <div class="col-md-5 border-right" *ngIf="profileForm">
+            <form [formGroup]="profileForm" (ngSubmit)="updateProfile()" class="contact_form" name="contact_form"
+                action="#" method="post" novalidate>
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Profile Settings</h4>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels">Name</label>
+                            <input class="form-control form_control" type="text" placeholder="Name"
+                                formControlName="name">
+                            <div *ngIf="profileForm.get('name').invalid && (profileForm.get('name').dirty || profileForm.get('name').touched)"
+                                class="error-message">
+                                <!-- <div *ngIf="profileForm.get('name').errors['required']">name is required.</div> -->
+                                <div *ngIf="profileForm.get('name').errors['invalidLength']">name must be between 2 to
+                                    20 characters.</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Email</label>
+                            <input class="form-control form_control" type="text" placeholder="Email"
+                                formControlName="email">
+                            <div *ngIf="profileForm.get('email').invalid && (profileForm.get('email').dirty || profileForm.get('email').touched)"
+                                class="error-message">
+                                <!-- <div *ngIf="profileForm.get('email').errors['required']">email is required.</div> -->
+                                <div *ngIf="profileForm.get('email').errors['email']">enter valid email.</div>
+                            </div>
+                            <p *ngIf="emailOtpVerified">verified</p>
+                            <div
+                                *ngIf="profileForm.get('email').valid && profile.email !== profileForm.get('email').value && !emailOtpVerified; else emailVerified">
+                                <ng-container *ngIf="makeFalseIsEmailVerified()">
+                                    <!-- Call a function to update the variable -->
+
+                                </ng-container>
+                                <button type="button" (click)="verfiyEmailToUpdate()">verify</button>
+
+                                <ng-container *ngIf="verifyEmailOtp">
+                                    <input type="number" [(ngModel)]="inputOtp" class="form-control" name="inputOtp"
+                                        [ngModelOptions]="{standalone: true}" placeholder="Enter 6 digit OTP" />
+                                    <button type="button" (click)="checkOtpToUpdateEmail()">check otp</button>
+                                </ng-container>
+                            </div>
+                            <ng-template #emailVerified>
+                                <ng-container *ngIf="makeTrueIsEmailVerified()">
+                                    <!-- Call a function to update the variable -->
+                                    <!-- Add logic or perform actions here -->
+                                </ng-container>
+                                <!-- Add logic to update isEmailVerified flag to true here -->
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Mobile Number</label>
+                            <input class="form-control form_control" type="text" placeholder="Phone"
+                                formControlName="phone">
+                            <div *ngIf="profileForm.get('phone').invalid && (profileForm.get('phone').dirty || profileForm.get('phone').touched)"
+                                class="error-message">
+                                <!-- <div *ngIf="profileForm.get('phone').errors['required']">phone number is required.</div> -->
+                                <div *ngIf="profileForm.get('phone').errors['invalidSizePhoneNumber']">phone number must
+                                    be of exactly 10 digits.</div>
+                                <div *ngIf="profileForm.get('phone').errors['invalidPatternPhoneNumber']">enter valid
+                                    phone number.</div>
+                            </div>
+                            <p *ngIf="phoneOtpVerified">verified</p>
+                  
+                            <div
+                                *ngIf="profileForm.get('phone').valid && profile.phone !== profileForm.get('phone').value && !phoneOtpVerified; else phoneVerified">
+                                <ng-container *ngIf="makeFalseIsPhoneVerified()">
+                                    <!-- Call a function to update the variable -->
+
+                                </ng-container>
+                                <div id="recaptcha-container"> </div>
+                                <button type="button" (click)="verfiyPhoneToUpdate()">verify</button>
+                                <ng-container *ngIf="verifyPhoneOtp">
+                                    <input type="number" [(ngModel)]="inputOtp" class="form-control" name="inputOtp"
+                                        [ngModelOptions]="{standalone: true}" placeholder="Enter 6 digit OTP" />
+                                    <button type="button" (click)="checkOtptoUpdatePhone()">check otp</button>
+                                </ng-container>
+                            </div>
+                            <ng-template #phoneVerified>
+                                <ng-container *ngIf="makeTrueIsPhoneVerified()">
+                                    <!-- Call a function to update the variable -->
+                                    <!-- Add logic or perform actions here -->
+                                </ng-container>
+                                <!-- Add logic to update isEmailVerified flag to true here -->
+                            </ng-template>
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">BirthDate</label>
+                            <input class="form-control form_control" type="date" [max]="maxDate"
+                                placeholder="your birthdate" formControlName="birthdate">
+                            <!-- <div *ngIf="profileForm.get('birthdate').invalid && (profileForm.get('birthdate').dirty || profileForm.get('birthdate').touched)" class="error-message">
+                              <!-- <div *ngIf="profileForm.get('birthdate').errors['required']">birthdate number is required.</div> -->
+                            <!-- <div *ngIf="profileForm.get('birthdate').errors['invalidSizebirthdateNumber']">birthdate number must be of exactly 10 digits.</div>
+                              <div *ngIf="profileForm.get('birthdate').errors['invalidPatternbirthdateNumber']">enter valid birthdate number.</div> 
+                            </div> -->
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Location</label>
+                            <input class="form-control form_control" type="text" placeholder="Location"
+                                formControlName="location">
+                            <div *ngIf="profileForm.get('location').invalid && (profileForm.get('location').dirty || profileForm.get('location').touched)"
+                                class="error-message">
+                                <!-- <div *ngIf="profileForm.get('location').errors['required']">location is required.</div> -->
+                                <div *ngIf="profileForm.get('location').errors['minlength']">location must have some
+                                    words.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center"><button type="submit"
+                            class="btn btn-primary profile-button btn-thm ad_flor_btn" style="cursor: pointer;"
+                            [disabled]="profileForm.invalid || isEmailVerified==false || isPhoneVerified==false">Save Profile</button></div>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
+                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
+                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<app-list-yourevent></app-list-yourevent>

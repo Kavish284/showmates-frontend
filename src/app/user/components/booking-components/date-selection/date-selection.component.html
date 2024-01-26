@@ -1,0 +1,67 @@
+<div class="modal book-code" id="mybookcal" >
+  <div class="modal-dialog modal-lg">
+   
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- Close button in the top-right corner of the modal -->
+          <button type="button" class="btn-close" id="closeDate" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <div class="modal-body">
+              <h3>Select a Date and Time:</h3>
+              <div class="event-checkout">
+                  <div class="row">
+                      <div class="col-md-6 border-right">
+                          <div class="datepicker-name">
+                              <div id="datepicker" [(ngModel)]="selectedDate" [availableTime]="availableTimes" [availableDates]="availableDates" appJquiDatepicker></div>
+                              <input  type="hidden" id="date" name="date" >
+                          </div>
+                      </div>
+                      <div class="col-md-6" >
+                        
+                          <div class="time-list" *ngIf="selectedTime">
+                              <div class="time-slate">
+                                  <div class="time-sloat">
+                                      <label [class.clicked]="clicked"><input (click)="pickTime(selectedTime)" type="radio"  name="sloat" [(ngModel)]="selectedTime" [value]="selectedTime" > <span style="user-select: none;">{{ selectedTime }}</span></label>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-12">                               
+                      <button class="btn-checkout" (click)="confirmDateTime()" >Confirm</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- <div class="date-selection-modal">
+    <div class="date-selection-popup">
+      <h2>Select a Date and Time:</h2>
+      <div class="date-time-selectors">
+        <div class="date-selector">
+          <h3>Date:</h3>
+          <select [(ngModel)]="selectedDate">
+            <option *ngFor="let date of availableDates" [value]="date">{{ date }}</option>
+          </select>
+        </div>
+        
+        <div class="time-selector">
+          <h3>Time:</h3>
+          <select [(ngModel)]="selectedTime">
+            <option [value]="availableTimes">{{ availableTimes }}</option>
+          </select>
+        </div>
+      </div>
+      <button (click)="confirmDateTime()">Confirm</button>
+    </div>
+</div>  -->
+
+<!-- <div class="date-selector">
+            <h3>Date:</h3>
+            <ngx-datepicker [(ngModel)]="selectedDate" [options]="options"></ngx-datepicker>
+          </div>  -->

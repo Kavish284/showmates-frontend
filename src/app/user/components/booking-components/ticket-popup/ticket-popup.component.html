@@ -1,0 +1,52 @@
+<!-- ticket-popup.component.html -->
+<ng-template #addticket let-modal id="addticket">
+    <div class="book-code">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!-- Close button in the top-right corner -->
+                    <button type="button" class="btn-close" (click)="modal.dismiss()" aria-label="Close"></button>
+                </div> 
+               
+                <div class="modal-body">
+                    <h3>Select Tickets</h3>
+                    <div class="event-checkout" *ngFor="let ticket of tickets; let i = index">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="qty-name">
+                                    <h3>{{ticket.ticketTitle}}</h3>
+                                    <p>{{ticket.ticketDescription}}</p>
+                                    <p>₹ {{ticket.ticketPrice}}</p>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="number" *ngIf="ticket.totalAvailableTickets!=ticket.ticketsSold">
+                                    <span class="minus" (click)="decrementQuantity(i)">-</span>
+                                    <input type="text" [(ngModel)]="tickets[i].quantity" [value]="tickets[i].quantity"
+                                        disabled />
+                                    <span class="plus" (click)="incrementQuantity(i)">+</span>
+                                </div>
+                                <div class="number" *ngIf="ticket.totalAvailableTickets==ticket.ticketsSold">
+                                    <span class="sold-out">Sold out</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="total-value">
+                                <p>Total Amount</p>
+                                <h3>₹ {{ calculateTotalAmount() }}</h3>
+                            </div>
+                            <button class="btn-checkout" (click)="checkout()"
+                                [disabled]="totalQuantity<=0">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<button class="btn btn-lg btn-outline-primary d-none" (click)="open(addticket)" id="ticketModal">Launch demo
+    modal</button>
